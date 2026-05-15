@@ -8,14 +8,12 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the backend code
-COPY . .
+# Copy the backend code into a backend/ folder inside /app
+COPY backend/ ./backend/
 
-# Expose port (internal)
-EXPOSE 8000
-
-# Run FastAPI with Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Run FastAPI with Uvicorn, treating backend as a package
+# We use shell form to allow variable substitution for Render's PORT
+CMD uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}

@@ -7,7 +7,7 @@ services:
     plan: free
     env: docker
     dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
+    dockerContext: .
     envVars:
       - key: GOOGLE_API_KEY
         sync: false # You will need to enter this in the Render Dashboard
