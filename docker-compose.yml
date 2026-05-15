@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: contract_ai_backend
+    environment:
+      # Use the mounted SQLite file
+      DATABASE_URL: sqlite:////app/contracts.db
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app # Code reload
+      - ./contracts.db:/app/contracts.db # API accesses the DB file
+    networks:
+      - ai_net
+
+  frontend:
+    build: .
+    container_name: contract_ai_frontend
+    depends_on:
+      - backend
+    environment:
+      API_BASE_URL: http://backend:8000
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    networks:
+      - ai_net
+
+networks:
+  ai_net:
+    driver: bridge
