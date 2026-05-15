@@ -11,12 +11,7 @@ services:
       - key: GOOGLE_API_KEY
         sync: false # You will need to enter this in the Render Dashboard
       - key: DATABASE_URL
-        value: sqlite:////data/contracts.db
-    # Create a persistent disk so the SQLite database is not wiped on every deploy
-    disk:
-      name: sqlite-data
-      mountPath: /data
-      sizeGB: 1
+        value: sqlite:////app/contracts.db
 
   # ------------------------------------
   # Frontend App Service (Streamlit)
