@@ -4,6 +4,7 @@ services:
   # ------------------------------------
   - type: web
     name: contract-ai-backend
+    plan: free
     env: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
@@ -18,6 +19,7 @@ services:
   # ------------------------------------
   - type: web
     name: contract-ai-frontend
+    plan: free
     env: docker
     dockerfilePath: ./Dockerfile
     dockerContext: .
