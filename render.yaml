@@ -31,4 +31,4 @@ services:
         fromService:
           type: web
           name: contract-ai-backend
-          property: url
+          envVarKey: RENDER_EXTERNAL_URL
